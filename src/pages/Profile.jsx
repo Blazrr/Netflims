@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Avatar from "../components/Avatar";
@@ -11,6 +11,8 @@ const Profile = () => {
   const [website, setWebsite] = useState();
   const [avatar_url, setAvatarUrl] = useState();
   const [error, setError] = useState();
+  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     setUsername(user.username);
@@ -22,7 +24,6 @@ const Profile = () => {
     import.meta.env.VITE_ANON_API_KEY
   );
 
-  // console.log(user.id);
   const handleSubmit = async (e) => {
     const { data, error } = await supabase
       .from("profiles")
@@ -32,15 +33,15 @@ const Profile = () => {
       setError("This username is already taken");
       alert("Username already taken");
     } else {
+      dispatch({type: "UPDATE_USER", payload: {...user, username, avatar_url}});
+
       // remove all the existing pictures in user bucket
       const { data, error } = await supabase.storage
         .from("avatars")
         .list(user.id);
-      console.log(data);
       const tmp = data.map((item) => {
         return user.id + "/" + item.name;
       });
-      // console.log(tmp);
       {
         //Delete old avatars
       const { data, error } = await supabase.storage

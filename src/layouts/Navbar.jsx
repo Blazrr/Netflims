@@ -16,7 +16,8 @@ const Navbar = ({ setSessionStatus }) => {
   const user = useSelector((store) => store.reducerUser);
 
   const activeStyle = {
-    filter: "invert(80%) sepia(100%) saturate(100%) hue-rotate(155deg) brightness(166%) contrast(100%)",
+    filter:
+      "invert(80%) sepia(100%) saturate(100%) hue-rotate(155deg) brightness(166%) contrast(100%)",
   };
   const dispatch = useDispatch();
 
@@ -90,7 +91,11 @@ const Navbar = ({ setSessionStatus }) => {
               <img
                 src={
                   user.avatar_url
-                    ? `https://tkegivgfbmgphxcmaomd.supabase.co/storage/v1/object/public/avatars/${user.id}/${user?.avatar_url}`
+                    ? `${
+                        import.meta.env.VITE_PROJECT_URL
+                      }/storage/v1/object/public/avatars/${user.id}/${
+                        user?.avatar_url
+                      }`
                     : "https://img-19.commentcamarche.net/AINHgQU6hzAaA-eacqk4lYu9IhE=/1500x/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg"
                 }
                 alt="No pfp"
