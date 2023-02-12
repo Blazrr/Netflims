@@ -18,14 +18,13 @@ const Dashboard = () => {
   );
 
   //! To filter the movies => NEED A FIX
-  const [filteredMovies, setFilteredMovies] = useState();
+  const [filteredMovies, setFilteredMovies] = useState(dataMovies);
 
   useEffect(() => {
     setFilteredMovies(data.results);
   }, [data]);
   
   const filter = (e) => {
-    console.log(e.target.value);
     const tmp = data.results.filter((item) => {
       return (item.original_title || item.name)
         .toLowerCase()
@@ -41,7 +40,7 @@ const Dashboard = () => {
 
   return (
     <main className="container">
-      <SearchBar filter={filter} placeholder="Search for movies or TV series" />
+      {/* <SearchBar filter={filter} placeholder="Search for movies or TV series" /> */}
 
       <section className="trending">
         <h1 className="title">Trending</h1>
